@@ -1,0 +1,38 @@
+{
+  "problema": "Optimización de Ubicación de Sensores LoRa",
+  "descripcion": "Set Cover Problem - Cobertura de campo de paltas",
+
+  "campo": {
+    "area_total_m2": 98628.59,
+    "dimension_x_m": 300,
+    "dimension_y_m": 328.76,
+    "descripcion": "Campo rectangular de paltas"
+  },
+
+  "sensor": {
+    "rango_cobertura_m": 150,
+    "tecnologia": "LoRa",
+    "descripcion": "Radio de cobertura efectivo de cada nodo sensor"
+  },
+
+  "discretizacion": {
+    "celda_x_m": 20,
+    "celda_y_m": 20,
+    "descripcion": "Tamaño de cada celda de demanda y separación de posibles ubicaciones"
+  },
+
+  "visualizacion": {
+    "mostrar_grid": true,
+    "mostrar_circulos_cobertura": true,
+    "color_sensores": "red",
+    "color_cobertura": "blue",
+    "alpha_cobertura": 0.1,
+    "titulo": "Distribución Óptima de Sensores LoRa"
+  },
+
+  "reporte": {
+    "generar_reporte_detallado": true,
+    "nombre_archivo": "reporte_optimizacion.txt",
+    "incluir_matriz_cobertura": false
+  }
+}
