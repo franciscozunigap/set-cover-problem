@@ -1,0 +1,90 @@
+================================================================================
+REPORTE DE OPTIMIZACIÓN DE SENSORES LoRa CON MODELO PATH-LOSS
+Set Cover Problem - Programación Lineal Entera
+================================================================================
+
+Fecha de generación: 2025-11-14 22:49:37
+
+--------------------------------------------------------------------------------
+1. PARÁMETROS DEL PROBLEMA
+--------------------------------------------------------------------------------
+Área total del campo: 2,080,000.00 m²
+Dimensiones del campo: 2000 m × 1040 m
+Tamaño de celda de discretización: 50 m × 50 m
+Número de puntos de demanda (|J|): 840
+Número de posibles ubicaciones (|I|): 840
+
+--------------------------------------------------------------------------------
+2. MODELO DE PROPAGACIÓN PATH-LOSS
+--------------------------------------------------------------------------------
+Frecuencia: 915 MHz
+Potencia de transmisión: 14 dBm
+Sensibilidad del receptor: -137 dBm
+Pérdida de referencia (1m): 40.2 dB
+Margen de desvanecimiento: 10 dB
+Exponente path-loss (campo abierto): 2.0
+Exponente path-loss (zona obstruida): 3.5
+
+Rango máximo (campo abierto): 109647.82 m
+Rango máximo (zona obstruida): 758.58 m
+Reducción de rango: 99.3%
+
+--------------------------------------------------------------------------------
+3. ESCENARIO DE INTERFERENCIA
+--------------------------------------------------------------------------------
+Tipo de escenario: zona_campesina_poblada
+Porcentaje de área obstruida: 35%
+Patrón de obstrucción: aleatorio
+
+--------------------------------------------------------------------------------
+4. FORMULACIÓN MATEMÁTICA
+--------------------------------------------------------------------------------
+Función Objetivo:
+  Minimizar: Σ x_i  (para todo i ∈ I)
+
+Restricciones:
+  Σ a_ij * x_i ≥ 1  (para todo j ∈ J)
+  x_i ∈ {0, 1}      (para todo i ∈ I)
+
+Donde a_ij = 1 si el enlace (i,j) es viable según modelo path-loss
+
+--------------------------------------------------------------------------------
+5. RESULTADOS DE LA OPTIMIZACIÓN
+--------------------------------------------------------------------------------
+Estado de la solución: Optimal
+Tiempo de resolución: 6.16 segundos
+Solver utilizado: PULP_CBC_CMD
+
+N_óptimo (número mínimo de sensores): 2
+
+--------------------------------------------------------------------------------
+6. COORDENADAS DE LOS SENSORES ÓPTIMOS
+--------------------------------------------------------------------------------
+Sensor     X (m)        Y (m)        Índice I  
+--------------------------------------------------------------------------------
+1          1525.00      525.00       430       
+2          225.00       675.00       524       
+
+--------------------------------------------------------------------------------
+7. MÉTRICAS Y ESTADÍSTICAS
+--------------------------------------------------------------------------------
+Densidad de sensores: 0.0096 sensores/hectárea
+Área promedio cubierta por sensor: 1,040,000.00 m²
+Porcentaje de ubicaciones utilizadas: 0.24%
+Área de cobertura (campo abierto): 37,770,251,154.66 m²
+Área de cobertura (zona obstruida): 1,807,797.88 m²
+
+--------------------------------------------------------------------------------
+8. ANÁLISIS DE COBERTURA
+--------------------------------------------------------------------------------
+Cobertura mínima por punto: 1
+Cobertura máxima por punto: 2
+Cobertura promedio por punto: 1.68
+
+Distribución de cobertura:
+  Puntos cubiertos por 1 sensor(es): 271 (32.3%)
+  Puntos cubiertos por 2 sensor(es): 569 (67.7%)
+
+================================================================================
+FIN DEL REPORTE
+================================================================================

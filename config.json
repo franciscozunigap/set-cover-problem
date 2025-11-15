@@ -3,22 +3,45 @@
   "descripcion": "Set Cover Problem - Cobertura de campo de paltas",
 
   "campo": {
-    "area_total_m2": 98628.59,
-    "dimension_x_m": 300,
-    "dimension_y_m": 328.76,
-    "descripcion": "Campo rectangular de paltas"
+    "area_total_m2": 2080000,
+    "dimension_x_m": 2000,
+    "dimension_y_m": 1040,
+    "perimetro_m": 6080,
+    "elevacion_min_m": 149.43,
+    "elevacion_mediana_m": 165,
+    "elevacion_max_m": 174,
+    "descripcion": "Campo rectangular de paltas - Zona extendida"
   },
 
   "sensor": {
     "rango_cobertura_m": 150,
     "tecnologia": "LoRa",
-    "descripcion": "Radio de cobertura efectivo de cada nodo sensor"
+    "descripcion": "Radio de cobertura efectivo de cada nodo sensor (usado solo en modo simple)"
+  },
+
+  "propagacion": {
+    "modelo": "path-loss",
+    "frecuencia_mhz": 915,
+    "potencia_tx_dbm": 14,
+    "sensibilidad_rx_dbm": -137,
+    "exponente_path_loss_abierto": 2.0,
+    "exponente_path_loss_obstruido": 3.5,
+    "perdida_referencia_1m_db": 40.2,
+    "margen_desvanecimiento_db": 10,
+    "descripcion": "Parámetros del modelo de propagación path-loss para zona poblada"
+  },
+
+  "escenario": {
+    "tipo": "zona_campesina_poblada",
+    "porcentaje_area_obstruida": 35,
+    "patron_obstruccion": "aleatorio",
+    "descripcion": "Características del entorno: casas campesinas con plantación"
   },
 
   "discretizacion": {
-    "celda_x_m": 20,
-    "celda_y_m": 20,
-    "descripcion": "Tamaño de cada celda de demanda y separación de posibles ubicaciones"
+    "celda_x_m": 50,
+    "celda_y_m": 50,
+    "descripcion": "Tamaño de cada celda de demanda (50×50m para campo grande = ~840 puntos)"
   },
 
   "visualizacion": {
