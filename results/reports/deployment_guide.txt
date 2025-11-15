@@ -1,0 +1,146 @@
+================================================================================
+GUÍA DE DEPLOYMENT - SISTEMA IoT DE MONITOREO DE HUMEDAD
+Two-Tier Architecture: Gateways LoRa + Sensores de Humedad
+================================================================================
+
+Fecha: 2025-11-14 23:13:13
+
+--------------------------------------------------------------------------------
+1. RESUMEN EJECUTIVO
+--------------------------------------------------------------------------------
+Campo: 208.0 hectáreas (2000m × 1040m)
+Cultivo: Paltas (aguacate)
+Tecnología: LoRa 915 MHz + Sensores capacitivos de humedad
+
+COMPONENTES DEL SISTEMA:
+  • Gateways LoRa: 2 unidades
+  • Sensores de humedad: 153 unidades
+  • Densidad de monitoreo: 0.67 sensores/hectárea
+  • Estrategia: Precisión Media
+
+--------------------------------------------------------------------------------
+2. UBICACIÓN DE GATEWAYS LoRa
+--------------------------------------------------------------------------------
+Gateway      X (m)        Y (m)        Sensores    
+--------------------------------------------------------------------------------
+Gateway 1    1525.0       525.0        87          
+Gateway 2    225.0        675.0        62          
+
+REQUISITOS POR GATEWAY:
+  • Módulo LoRa (915 MHz, potencia configurada 14 dBm)
+  • Antena omnidireccional 3-5 dBi
+  • Alimentación: Panel solar + batería o conexión AC
+  • Altura de instalación recomendada: 3-5 metros
+  • Conectividad: WiFi/Ethernet/Celular para uplink a cloud
+
+--------------------------------------------------------------------------------
+3. GRID DE SENSORES DE HUMEDAD
+--------------------------------------------------------------------------------
+Espaciado del grid: 120 m
+Total de sensores: 153
+Profundidad de medición: 20-30 cm (zona radicular)
+
+ESPECIFICACIONES DEL SENSOR:
+  • Tipo: Sensor capacitivo de humedad de suelo
+  • Módulo: ESP32 + LoRa (SX1276/RFM95)
+  • Rango de medición: 0-100% VWC
+  • Frecuencia de muestreo: Cada 30-60 minutos
+  • Alimentación: Baterías + panel solar pequeño
+  • Autonomía esperada: >1 año con sleep mode
+
+--------------------------------------------------------------------------------
+4. ASIGNACIÓN SENSOR → GATEWAY
+--------------------------------------------------------------------------------
+
+Gateway 1 (1525.0, 525.0):
+  Sensores asignados: 87
+  Primeros 10 sensores:
+    Sensor   8: ( 1020.0,    60.0) -  686.5m
+    Sensor   9: ( 1140.0,    60.0) -  603.7m
+    Sensor  10: ( 1260.0,    60.0) -  535.2m
+    Sensor  11: ( 1380.0,    60.0) -  487.1m
+    Sensor  12: ( 1500.0,    60.0) -  465.7m
+    Sensor  13: ( 1620.0,    60.0) -  474.6m
+    Sensor  14: ( 1740.0,    60.0) -  512.3m
+    Sensor  15: ( 1860.0,    60.0) -  573.1m
+    Sensor  16: ( 1980.0,    60.0) -  650.6m
+    Sensor  24: (  900.0,   180.0) -  713.9m
+    ... y 77 sensores más
+
+Gateway 2 (225.0, 675.0):
+  Sensores asignados: 62
+  Primeros 10 sensores:
+    Sensor   0: (   60.0,    60.0) -  636.7m
+    Sensor   1: (  180.0,    60.0) -  616.6m
+    Sensor   2: (  300.0,    60.0) -  619.6m
+    Sensor   3: (  420.0,    60.0) -  645.2m
+    Sensor   4: (  540.0,    60.0) -  691.0m
+    Sensor  17: (   60.0,   180.0) -  521.8m
+    Sensor  18: (  180.0,   180.0) -  497.0m
+    Sensor  19: (  300.0,   180.0) -  500.6m
+    Sensor  20: (  420.0,   180.0) -  532.0m
+    Sensor  21: (  540.0,   180.0) -  586.7m
+    ... y 52 sensores más
+
+⚠️  SENSORES FUERA DE RANGO (4):
+    Sensor   5: (  660.0,    60.0) -  753.3m del gateway más cercano
+    Sensor   6: (  780.0,    60.0) -  828.4m del gateway más cercano
+    Sensor   7: (  900.0,    60.0) -  779.0m del gateway más cercano
+    Sensor 143: (  900.0,  1020.0) -  758.1m del gateway más cercano
+  ACCIÓN: Considerar agregar gateway adicional o aumentar potencia TX
+
+--------------------------------------------------------------------------------
+5. PROTOCOLO DE INSTALACIÓN
+--------------------------------------------------------------------------------
+
+FASE 1 - INSTALACIÓN DE GATEWAYS:
+  1. Instalar gateways en posiciones especificadas
+  2. Orientar antenas verticalmente (polarización)
+  3. Configurar parámetros LoRa (SF, BW, CR)
+  4. Verificar conectividad a cloud/servidor
+  5. Realizar test de alcance con sensor móvil
+
+FASE 2 - DESPLIEGUE DE SENSORES:
+  1. Marcar posiciones del grid con estacas
+  2. Instalar sensores a profundidad especificada (20-30cm)
+  3. Programar Device ID y Gateway asignado en cada sensor
+  4. Verificar transmisión de datos
+  5. Registrar ubicación en base de datos
+
+FASE 3 - VALIDACIÓN Y PUESTA EN MARCHA:
+  1. Verificar recepción de datos de todos los sensores
+  2. Calibrar umbrales de humedad según tipo de suelo
+  3. Configurar alarmas y notificaciones
+  4. Entrenar al personal en mantenimiento
+  5. Documentar sistema y crear plan de mantenimiento
+
+--------------------------------------------------------------------------------
+6. CONFIGURACIÓN LORA RECOMENDADA
+--------------------------------------------------------------------------------
+Frecuencia: 915 MHz (ISM Band América)
+Spreading Factor (SF): 7-9 (balance alcance/velocidad)
+Bandwidth (BW): 125 kHz
+Coding Rate (CR): 4/5
+Potencia TX: 14 dBm (gateways), 14 dBm (sensores)
+Tiempo en aire: ~50-200ms por mensaje
+Payload: 20-30 bytes (ID + humedad + batería + temperatura)
+
+--------------------------------------------------------------------------------
+7. ESTIMACIÓN DE COSTOS (USD)
+--------------------------------------------------------------------------------
+Gateways LoRa (2 unidades):
+  • Hardware: $300 ($150/unidad)
+  • Instalación: $400 ($200/unidad)
+  • Subtotal gateways: $700
+
+Sensores de Humedad (153 unidades):
+  • Hardware: $6885 ($45/unidad)
+  • Instalación: $1530 ($10/unidad)
+  • Subtotal sensores: $8415
+
+COSTO TOTAL ESTIMADO: $9,115
+Costo por hectárea: $44/ha
+
+================================================================================
+FIN DEL REPORTE
+================================================================================
